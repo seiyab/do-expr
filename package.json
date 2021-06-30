@@ -2,16 +2,22 @@
   "name": "@seiyab/do-expr",
   "version": "0.0.0",
   "description": "do expression as a package inspired by https://tc39.es/proposal-do-expressions/",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest",
     "lint": "eslint src/ --ext .ts && prettier -c src",
     "format": "prettier -w src",
     "build": "tsc",
-    "prepare": "build",
+    "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seiyab/do-expr"
+  },
+  "homepage": "https://github.com/seiyab/do-expr",
   "author": "seiyab",
   "license": "MIT",
   "devDependencies": {
