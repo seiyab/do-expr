@@ -58,7 +58,7 @@ return (
 
 ### `var` declarations
 
-(write documents later)
+(would write documents later)
 
 ### Empty `do`
 
@@ -66,9 +66,22 @@ return (
 
 Some lint tool might blame it.
 
-### `await`/`yield`
+### `await`
 
-(write documents later)
+Works fine.
+To use `await`, you need an `await` before `do_` and an `async` before `()`.
+
+```js
+const result = await do_(async () => {
+  const x = await fetchSomeData();
+  if (x.isSuccess) return "ok";
+  return "oops";
+});
+```
+
+### `yield`
+
+(would write documents later)
 
 ### `throw`
 
@@ -78,11 +91,70 @@ Works fine. Does what you expect.
 
 These won't work like proposal-do-expressions.
 
-Though technical reasons are major ones,
-I think allowing them in expression might cause confusion.
+Especially, `return` is used for declaring result of `do_`, rather than `return`ing from outer function.
 
-`return` is used for declaring result of `do_`, rather than `return`ing from outer function.
+The major reason is technical one.
+And it's also for readability.
+Allowing these might induce confusion.
+These don't fit the motivation "expression-oriented programming".
 
 ### Conflict with `do-while`
 
-No problem.
+No problem at all.
+
+## Comparison
+### v.s. IIFE
+Yes, `do-expr` is just IIFE as you noticed.
+`do-expr` still has some advantages.
+
+The main advantage is readability.
+We need to read last part of the expressions to know whether expressions are IIFEs or not.
+
+```js
+// plain IIFE
+const x = (() => {
+//         ^ x is a function?
+  if (f()) return g();
+  return h();
+})()
+//^ OK, this is an IIFE.
+
+// do_
+const x = do_(() => {
+//        ^ OK, this behaves like do expression.
+  if (f()) return g();
+  return h();
+})
+```
+
+As another idea, you can declare `_do` argument to indicate it behaves like do expression.
+
+```js
+const x = ((_do) => {
+//          ^ ok, this behave like do expression.
+  if (f()) return g();
+  return h();
+})()
+```
+
+In this case, you need to write coding guideline documents and notify colleagues.
+Because this is not idiomatic yet.
+If readers don't know this idiom, they are confused by mysterious `_do` argument and might consider it is function declaration until they reach the last `()`.
+
+On the other hand, `do_` already has README.md that you read now.
+If readers don't know `do_`, they are likely to google `@seiyab/do-expr` and find this README.
+
+### v.s. proposal-do-expressions
+#### Availability
+proposal-do-expressions is still stage 1 of the TC39 process.
+
+`do-expr` is already available.
+Though it's major version is 0, I would release ver 1.0.0 without changing the implementation.
+
+#### Performance
+proposal-do-expressions would be faster than `do-expr`.
+Because `do-expr` causes some overheads like function call.
+
+proposal-do-expressions might slow down JS execution engines just a little bit since it induces complexity to the language.
+
+In my opinion, these difference don't matter for most cases.
