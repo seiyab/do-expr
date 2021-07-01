@@ -10,6 +10,10 @@ This package is inspired by proposal-do-expressions
 * expression-oriented programming one of the great advances of FP
 * expressions plug together like legos, making more malleable programming experience in-the-small
 
+## Installation
+```
+npm install @seiyab/do-expr
+```
 
 ## Examples
 
