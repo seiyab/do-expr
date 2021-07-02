@@ -1,6 +1,6 @@
 {
   "name": "@seiyab/do-expr",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "do expression as a package inspired by https://tc39.es/proposal-do-expressions/",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -13,6 +13,9 @@
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint"
   },
+  "files": [
+    "/lib"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/seiyab/do-expr"
