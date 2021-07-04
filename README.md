@@ -45,15 +45,10 @@ Especially nice for templating languages like JSX:
 return (
   <nav>
     <Home />
-    {
-      do_(() => {
-        if (loggedIn) {
-          return <LogoutButton />
-        } else {
-          return <LoginButton />
-        }
-      })
-    }
+    {do_(() => {
+      if (loggedIn) return <LogoutButton />;
+      return <LoginButton />;
+    })}
   </nav>
 )
 ```
@@ -62,7 +57,8 @@ return (
 
 ### `var` declarations
 
-(would write documents later)
+`var` declarations are allowed, with the hoisting to the parameter function's scope.
+This behavior differs from proposal-do-expressions.
 
 ### Empty `do`
 
@@ -83,24 +79,24 @@ const result = await do_(async () => {
 });
 ```
 
-### `yield`
-
-(would write documents later)
-
 ### `throw`
 
 Works fine. Does what you expect.
 
-### `break`/`continue`/`return`
+### `break`/`continue`/`yield`
 
 These won't work like proposal-do-expressions.
-
-Especially, `return` is used for declaring result of `do_`, rather than `return`ing from outer function.
 
 The major reason is technical one.
 And it's also for readability.
 Allowing these might induce confusion.
 These don't fit the motivation "expression-oriented programming".
+
+### `return`
+
+It has a different functionality from proposal-do-expressions.
+
+`return` is used for declaring result of `do_`, rather than `return`ing from outer function.
 
 ### Conflict with `do-while`
 
@@ -117,15 +113,15 @@ We need to read last part of the expressions to know whether expressions are IIF
 ```js
 // plain IIFE
 const x = (() => {
-//         ^ x is a function?
+//         ^^^^^ is x a function?
   if (f()) return g();
   return h();
 })()
-//^ OK, this is an IIFE.
+//^^ Finally I understand. this is an IIFE.
 
 // do_
 const x = do_(() => {
-//        ^ OK, this behaves like do expression.
+//        ^^^ OK, this behaves like a do expression.
   if (f()) return g();
   return h();
 })
@@ -135,7 +131,7 @@ As another idea, you can declare `_do` argument to indicate it behaves like do e
 
 ```js
 const x = ((_do) => {
-//          ^ ok, this behave like do expression.
+//          ^^^ OK, this behave like a do expression.
   if (f()) return g();
   return h();
 })()
@@ -151,6 +147,7 @@ If readers don't know `do_`, they are likely to google `@seiyab/do-expr` and fin
 ### v.s. proposal-do-expressions
 #### Availability
 proposal-do-expressions is still stage 1 of the TC39 process.
+But a babel plugin [`@babel/plugin-proposal-do-expression`](https://babeljs.io/docs/en/babel-plugin-proposal-do-expressions) is available.
 
 `do-expr` is already available.
 Though it's major version is 0, I would release ver 1.0.0 without changing the implementation.
@@ -158,7 +155,12 @@ Though it's major version is 0, I would release ver 1.0.0 without changing the i
 #### Performance
 proposal-do-expressions would be faster than `do-expr`.
 Because `do-expr` causes some overheads like function call.
+`@babel/plugin-proposal-do-expression` would also be faster than `do-expr`.
 
 proposal-do-expressions might slow down JS execution engines just a little bit since it induces complexity to the language.
 
+`@babel/plugin-proposal-do-expression` would slow down transpile process.
+This would be trivial for most projects.
+
 In my opinion, these difference don't matter for most cases.
+You should find the bottleneck measuring your application rather than minding these trivial difference.
