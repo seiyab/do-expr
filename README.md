@@ -103,7 +103,7 @@ It has a different functionality from proposal-do-expressions.
 No problem at all.
 
 ## Comparison
-### v.s. IIFE
+### vs. IIFE
 Yes, `do-expr` is just IIFE as you noticed.
 `do-expr` still has some advantages.
 
@@ -117,7 +117,7 @@ const x = (() => {
   if (f()) return g();
   return h();
 })()
-//^^ Finally I understand. this is an IIFE.
+//^^ Finally I got it. this is an IIFE.
 
 // do_
 const x = do_(() => {
@@ -139,12 +139,24 @@ const x = ((_do) => {
 
 In this case, you need to write coding guideline documents and notify colleagues.
 Because this is not idiomatic yet.
-If readers don't know this idiom, they are confused by mysterious `_do` argument and might consider it is function declaration until they reach the last `()`.
+If readers don't know this idiom, they are confused by a mysterious `_do` argument and might consider that it is a function declaration until they reach the last `()`.
 
 On the other hand, `do_` already has README.md that you read now.
 If readers don't know `do_`, they are likely to google `@seiyab/do-expr` and find this README.
 
-### v.s. proposal-do-expressions
+### vs. proposal-do-expressions
+
+#### Functionality
+Some features like `break` / `continue` / `yield` doesn't work with `@seiyab/do-expr`.
+
+The reasons are not only technical ones.
+It is an intended interface design.
+The main motivation of `@seiyab/do-expr` is expression-oriented programming.
+Though feature are perhaps helpful, they don't fit the original motivation.
+They might induce unnecessary complexity.
+
+The following issue reports proposal-do-expressions vs IIFEs: https://github.com/tc39/proposal-do-expressions/issues/34
+
 #### Availability
 proposal-do-expressions is still stage 1 of the TC39 process.
 But a babel plugin [`@babel/plugin-proposal-do-expression`](https://babeljs.io/docs/en/babel-plugin-proposal-do-expressions) is available.
