@@ -161,8 +161,7 @@ The following issue reports proposal-do-expressions vs IIFEs: https://github.com
 proposal-do-expressions is still stage 1 of the TC39 process.
 But a babel plugin [`@babel/plugin-proposal-do-expression`](https://babeljs.io/docs/en/babel-plugin-proposal-do-expressions) is available.
 
-`do-expr` is already available.
-Though it's major version is 0, I would release ver 1.0.0 without changing the implementation.
+`@seiyab/do-expr` already has stable release.
 
 #### Performance
 proposal-do-expressions would be faster than `do-expr`.
