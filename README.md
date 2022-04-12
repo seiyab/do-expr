@@ -152,8 +152,8 @@ Some features like `break` / `continue` / `yield` doesn't work with `@seiyab/do-
 The reasons are not only technical ones.
 It is an intended interface design.
 The main motivation of `@seiyab/do-expr` is expression-oriented programming.
-Though feature are perhaps helpful, they don't fit the original motivation.
-They might induce unnecessary complexity.
+Though the features are perhaps helpful, they don't fit the original motivation.
+They will induce unnecessary complexity.
 
 The following issue reports proposal-do-expressions vs IIFEs: https://github.com/tc39/proposal-do-expressions/issues/34
 
@@ -162,16 +162,3 @@ proposal-do-expressions is still stage 1 of the TC39 process.
 But a babel plugin [`@babel/plugin-proposal-do-expression`](https://babeljs.io/docs/en/babel-plugin-proposal-do-expressions) is available.
 
 `@seiyab/do-expr` already has stable release.
-
-#### Performance
-proposal-do-expressions would be faster than `do-expr`.
-Because `do-expr` causes some overheads like function call.
-`@babel/plugin-proposal-do-expression` would also be faster than `do-expr`.
-
-proposal-do-expressions might slow down JS execution engines just a little bit since it induces complexity to the language.
-
-`@babel/plugin-proposal-do-expression` would slow down transpile process.
-This would be trivial for most projects.
-
-In my opinion, these difference don't matter for most cases.
-You should find the bottleneck measuring your application rather than minding these trivial difference.
