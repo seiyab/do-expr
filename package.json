@@ -1,6 +1,6 @@
 {
   "name": "@seiyab/do-expr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "do expression as a package inspired by https://tc39.es/proposal-do-expressions/",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
